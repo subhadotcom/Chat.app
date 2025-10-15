@@ -1,0 +1,24 @@
+# This file is optional - Vercel and Render auto-deploy from GitHub
+# You can delete this file if you want
+
+name: Deploy Chat App
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        run: |
+          cd server && npm install
+          cd ../client && npm install
+      - name: Build frontend
+        run: cd client && npm run build
